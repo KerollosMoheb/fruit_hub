@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruits_e_commerce_app/constants.dart';
+import 'package:fruits_e_commerce_app/core/services/shared_preferences_singleton.dart';
+import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
+import 'package:fruits_e_commerce_app/features/auth/presentation/views/login_view.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem({
@@ -34,9 +38,22 @@ class PageViewItem extends StatelessWidget {
               ),
               Visibility(
                 visible: isVisable,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("تخط"),
+                child: GestureDetector(
+                  onTap: () {
+                    Prefs.setBool(kIsOnBoardinViewSeen, true);
+                    Navigator.of(
+                      context,
+                    ).pushReplacementNamed(LoginView.routeName);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "تخط",
+                      style: TextStyles.regular13.copyWith(
+                        color: Color(0xFF949D9E),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -46,8 +63,12 @@ class PageViewItem extends StatelessWidget {
         title,
         SizedBox(height: 24),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(subtitle, textAlign: TextAlign.center),
+          padding: const EdgeInsets.symmetric(horizontal: 37),
+          child: Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: TextStyles.semiBold13.copyWith(color: Color(0xFF4E5456)),
+          ),
         ),
       ],
     );
