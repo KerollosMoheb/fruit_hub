@@ -4,7 +4,7 @@ import 'package:fruits_e_commerce_app/constants.dart';
 import 'package:fruits_e_commerce_app/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_colors.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_button.dart';
-import 'package:fruits_e_commerce_app/features/auth/presentation/views/login_view.dart';
+import 'package:fruits_e_commerce_app/features/auth/presentation/views/signin_view.dart';
 import 'package:fruits_e_commerce_app/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
@@ -60,7 +60,9 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             child: CustomButton(
               onPressed: () {
                 Prefs.setBool(kIsOnBoardinViewSeen, true);
-                Navigator.of(context).pushReplacementNamed(LoginView.routeName);
+                Navigator.of(
+                  context,
+                ).pushReplacementNamed(SigninView.routeName);
               },
               text: 'ابدأ الان',
             ),
