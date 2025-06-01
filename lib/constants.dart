@@ -1,2 +1,3 @@
 const kHorizontalPadding = 16.0;
-const kIsOnBoardinViewSeen =   'isOnBoardinViewSeen';
+const kTopPadding = 16.0;
+const kIsOnBoardinViewSeen = 'isOnBoardinViewSeen';
