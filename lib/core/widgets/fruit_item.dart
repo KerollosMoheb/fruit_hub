@@ -27,7 +27,12 @@ class FruitItem extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                Image.asset(Assets.imagesWatermelon), // must be a valid asset
+                Image.asset(
+                  Assets.imagesFruits,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.error);
+                  },
+                ),
                 const SizedBox(height: 24),
                 ListTile(
                   title: Text(
