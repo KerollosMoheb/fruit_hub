@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
 import 'package:fruits_e_commerce_app/core/utils/app_images.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
 import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/featured_item_button.dart';
@@ -22,13 +23,16 @@ class FeaturedItem extends StatelessWidget {
                 left: 0,
                 bottom: 0,
                 right: itemWidth * .4,
-                child: Image.asset(Assets.imagesFruits, fit: BoxFit.fill),
+                child: SvgPicture.asset(
+                  Assets.imagesPageViewItem2Image,
+                  fit: BoxFit.fill,
+                ),
               ),
               Container(
                 width: itemWidth * .5,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: Svg(Assets.imagesFeaturedItemBackground),
+                    image: svg.Svg(Assets.imagesFeaturedItemBackground),
                     fit: BoxFit.fill,
                   ),
                 ),
