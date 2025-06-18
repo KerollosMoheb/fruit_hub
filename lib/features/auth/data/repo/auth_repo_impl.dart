@@ -64,8 +64,9 @@ class AuthRepoImpl extends AuthRepo {
         email: email,
         password: password,
       );
-      var UserEntity = await getUserData(uid: user.uid);
-      return right(UserEntity);
+      var userEntity = await getUserData(uid: user.uid);
+      await saveUserData(user: userEntity);
+      return right(userEntity);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {

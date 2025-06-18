@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_e_commerce_app/core/helper_functions/get_user.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_images.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
 import 'package:fruits_e_commerce_app/core/widgets/notification_widget.dart';
@@ -9,14 +10,18 @@ class CustomHomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      trailing: NotificationWidget(),
+      trailing: const NotificationWidget(),
       leading: Image.asset(Assets.imagesProfile),
       title: Text(
         'صباح الخير !..',
         textAlign: TextAlign.right,
-        style: TextStyles.regular16.copyWith(color: Color(0xff949d9e)),
+        style: TextStyles.regular16.copyWith(color: const Color(0xFF949D9E)),
       ),
-      subtitle: Text('أحمد مصطفي', style: TextStyles.bold16),
+      subtitle: Text(
+        getUser().name,
+        textAlign: TextAlign.right,
+        style: TextStyles.bold16,
+      ),
     );
   }
 }
