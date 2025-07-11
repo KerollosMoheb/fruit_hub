@@ -26,7 +26,7 @@ class FruitItem extends StatelessWidget {
           Positioned.fill(
             child: Column(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Image.asset(
                   Assets.imagesFruits,
                   errorBuilder: (context, error, stackTrace) {
