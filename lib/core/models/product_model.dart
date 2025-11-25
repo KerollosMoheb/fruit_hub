@@ -1,90 +1,90 @@
-import 'dart:io';
 import 'package:fruits_e_commerce_app/core/entities/product_entity.dart';
-import 'package:fruits_e_commerce_app/core/models/review_model.dart';
+import '../helper_functions/get_avg_rating.dart';
+import 'review_model.dart';
 
 class ProductModel {
   final String name;
   final String code;
   final String description;
   final num price;
-  final File image;
+
   final bool isFeatured;
   final num sellingCount;
   String? imageUrl;
-  final int expirationMonths;
-  bool isOrganic;
+  final int expirationsMonths;
+  final bool isOrganic;
   final int numberOfCalories;
-  final num avgRating = 0;
+  final num avgRating;
   final num ratingCount = 0;
   final int unitAmount;
   final List<ReviewModel> reviews;
+  ProductModel(
+      {required this.name,
+      required this.code,
+      required this.description,
+      required this.expirationsMonths,
+      required this.numberOfCalories,
+      required this.avgRating,
+      required this.unitAmount,
+      required this.sellingCount,
+      required this.reviews,
+      required this.price,
+      required this.isOrganic,
+      required this.isFeatured,
+      this.imageUrl});
 
-  ProductModel({
-    required this.name,
-    required this.code,
-    required this.description,
-    required this.expirationMonths,
-    required this.numberOfCalories,
-    required this.unitAmount,
-    required this.price,
-    required this.reviews,
-    required this.image,
-    required this.isFeatured,
-    required this.isOrganic,
-    this.imageUrl,
-    required this.sellingCount,
-  });
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      avgRating: getAvgRating(json['reviews'] != null
+          ? List<ReviewModel>.from(
+              json['reviews'].map((e) => ReviewModel.fromJson(e)))
+          : []),
       name: json['name'],
       code: json['code'],
       description: json['description'],
+      expirationsMonths: json['expirationsMonths'],
+      numberOfCalories: json['numberOfCalories'],
+      unitAmount: json['unitAmount'],
+      sellingCount: json['sellingCount'],
+      reviews: json['reviews'] != null
+          ? List<ReviewModel>.from(
+              json['reviews'].map((e) => ReviewModel.fromJson(e)))
+          : [],
       price: json['price'],
+      isOrganic: json['isOrganic'],
+      isFeatured: json['isFeatured'],
       imageUrl: json['imageUrl'],
-      isFeatured: json['isFeatured'] ?? false,
-      expirationMonths: json['expirationMonths'] ?? 0,
-      numberOfCalories: json['numberOfCalories'] ?? 0,
-      unitAmount: json['unitAmount'] ?? 0,
-      isOrganic: json['isOrganic'] ?? false,
-      reviews:
-          (json['reviews'] as List)
-              .map((review) => ReviewModel.fromJson(review))
-              .toList(),
-      image: File(json['imagePath']),
-      sellingCount: json['sellingCount'] ?? 0,
     );
   }
+
   ProductEntity toEntity() {
     return ProductEntity(
-      name: name,
-      code: code,
-      description: description,
-      price: price,
-      reviews: reviews.map((e) => e.toEntity()).toList(),
-      imageUrl: imageUrl,
-      isFeatured: isFeatured,
-      expirationMonths: expirationMonths,
-      numberOfCalories: numberOfCalories,
-      unitAmount: unitAmount,
-      isOrganic: isOrganic,
-      image: image,
-    );
+        name: name,
+        code: code,
+        description: description,
+        price: price,
+        reviews: reviews.map((e) => e.toEntity()).toList(),
+        expirationsMonths: expirationsMonths,
+        numberOfCalories: numberOfCalories,
+        unitAmount: unitAmount,
+        isOrganic: isOrganic,
+        isFeatured: isFeatured,
+        imageUrl: imageUrl);
   }
 
   toJson() {
     return {
       'name': name,
       'code': code,
-      'sellingCount': sellingCount,
       'description': description,
       'price': price,
-      'imageUrl': imageUrl,
       'isFeatured': isFeatured,
-      'expirationMonths': expirationMonths,
+      'imageUrl': imageUrl,
+      'expirationsMonths': expirationsMonths,
       'numberOfCalories': numberOfCalories,
       'unitAmount': unitAmount,
       'isOrganic': isOrganic,
-      'reviews': reviews.map((e) => e.toJson()).toList(),
+      'reviews': reviews.map((e) => e.toJson()).toList()
     };
   }
 }

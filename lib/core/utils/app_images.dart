@@ -47,16 +47,16 @@ class Assets {
   static const String imagesPageViewItem1BackgroundImage = "assets/images/page_view_item1_background_Image.svg";
 
   /// Assets for imagesPageViewItem1Image
-  /// assets/images/page_view_item1_Image.svg
-  static const String imagesPageViewItem1Image = "assets/images/page_view_item1_Image.svg";
+  /// assets/images/page_view_item1_image.svg
+  static const String imagesPageViewItem1Image = "assets/images/page_view_item1_image.svg";
 
   /// Assets for imagesPageViewItem2BackgroundImage
-  /// assets/images/page_view_item2_background_Image.svg
-  static const String imagesPageViewItem2BackgroundImage = "assets/images/page_view_item2_background_Image.svg";
+  /// assets/images/page_view_item2_background_image.svg
+  static const String imagesPageViewItem2BackgroundImage = "assets/images/page_view_item2_background_image.svg";
 
   /// Assets for imagesPageViewItem2Image
-  /// assets/images/page_view_item2_Image.svg
-  static const String imagesPageViewItem2Image = "assets/images/page_view_item2_Image.svg";
+  /// assets/images/page_view_item2_image.svg
+  static const String imagesPageViewItem2Image = "assets/images/page_view_item2_image.svg";
 
   /// Assets for imagesPlant
   /// assets/images/plant.svg

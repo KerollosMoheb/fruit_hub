@@ -16,7 +16,7 @@ void main() async {
   Bloc.observer = CustomBlocObserver();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Prefs.init();
-  setupGetIt();
+  setupGetit();
   runApp(const FruitHub());
 }
 
@@ -40,7 +40,7 @@ class FruitHub extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: onGenerateRoutes,
+      onGenerateRoute: onGenerateRoute,
       initialRoute: SplashView.routeName,
     );
   }

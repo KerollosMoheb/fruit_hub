@@ -9,31 +9,39 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Color(0x0a000000),
+            color: Color(0x0A000000),
             blurRadius: 9,
             offset: Offset(0, 2),
             spreadRadius: 0,
-          ),
+          )
         ],
       ),
       child: TextField(
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
-          suffixIcon: SizedBox(
-            width: 20,
-            child: Center(child: SvgPicture.asset(Assets.imagesFilter)),
-          ),
           prefixIcon: SizedBox(
             width: 20,
-            child: Center(child: SvgPicture.asset(Assets.imagesSearch)),
+            child: Center(
+              child: SvgPicture.asset(Assets.imagesSearch),
+            ),
           ),
+          suffixIcon: SizedBox(
+            width: 20,
+            child: Center(
+              child: SvgPicture.asset(
+                Assets.imagesFilter,
+              ),
+            ),
+          ),
+          hintStyle: TextStyles.regular13.copyWith(
+            color: const Color(0xFF949D9E),
+          ),
+          hintText: 'ابحث عن.......',
           filled: true,
           fillColor: Colors.white,
-          hintText: 'ابحث عن.......',
-          hintStyle: TextStyles.regular13.copyWith(color: Color(0xFF949D9E)),
           border: buildBorder(),
           enabledBorder: buildBorder(),
           focusedBorder: buildBorder(),
@@ -45,7 +53,10 @@ class SearchTextField extends StatelessWidget {
   OutlineInputBorder buildBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: Colors.white, width: 1),
+      borderSide: const BorderSide(
+        width: 1,
+        color: Colors.white,
+      ),
     );
   }
 }

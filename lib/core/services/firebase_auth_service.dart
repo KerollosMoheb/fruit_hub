@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   Future deleteUser() async {
-    await FirebaseAuth.instance.currentUser?.delete();
+    await FirebaseAuth.instance.currentUser!.delete();
   }
 
   Future<User> createUserWithEmailAndPassword({
@@ -20,23 +20,29 @@ class FirebaseAuthService {
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       log(
-        'Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()} and code: ${e.code}',
+        "Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()} and code is ${e.code}",
       );
       if (e.code == 'weak-password') {
-        throw CustomException(message: 'الكلمة المرور ضعيفة جدا.');
+        throw CustomException(message: 'الرقم السري ضعيف جداً.');
       } else if (e.code == 'email-already-in-use') {
-        throw CustomException(message: 'لالبريد الإلكتروني مستخدم بالفعل.');
+        throw CustomException(
+          message: 'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.',
+        );
       } else if (e.code == 'network-request-failed') {
-        throw CustomException(message: ' يرجى التحقق من اتصالك بالإنترنت.');
+        throw CustomException(message: 'تاكد من اتصالك بالانترنت.');
       } else {
-        throw CustomException(message: 'لقد حدث خطأ غير معروف.');
+        throw CustomException(
+          message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+        );
       }
     } catch (e) {
       log(
-        'Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()}',
+        "Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()}",
       );
 
-      throw CustomException(message: 'لقد حدث خطأ غير معروف.');
+      throw CustomException(
+        message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+      );
     }
   }
 
@@ -52,27 +58,35 @@ class FirebaseAuthService {
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       log(
-        'Exception in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()} and code: ${e.code}',
+        "Exception in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()} and code is ${e.code}",
       );
       if (e.code == 'user-not-found') {
         throw CustomException(
-          message: 'البريد الإلكتروني او كلمة المرور غير موجود.',
+          message: 'الرقم السري او البريد الالكتروني غير صحيح.',
         );
       } else if (e.code == 'wrong-password') {
         throw CustomException(
-          message: 'البريد الإلكتروني او كلمة المرور غير موجود.',
+          message: 'الرقم السري او البريد الالكتروني غير صحيح.',
+        );
+      } else if (e.code == 'invalid-credential') {
+        throw CustomException(
+          message: 'الرقم السري او البريد الالكتروني غير صحيح.',
         );
       } else if (e.code == 'network-request-failed') {
-        throw CustomException(message: ' يرجى التحقق من اتصالك بالإنترنت.');
+        throw CustomException(message: 'تاكد من اتصالك بالانترنت.');
       } else {
-        throw CustomException(message: 'لقد حدث خطأ غير معروف.');
+        throw CustomException(
+          message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+        );
       }
     } catch (e) {
       log(
-        'Exception in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()}',
+        "Exception in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()}",
       );
 
-      throw CustomException(message: 'لقد حدث خطأ غير معروف.');
+      throw CustomException(
+        message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+      );
     }
   }
 
@@ -91,16 +105,34 @@ class FirebaseAuthService {
   }
 
   Future<User> signInWithFacebook() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login();
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+      if (loginResult.status == LoginStatus.success) {
+        final accessToken = loginResult.accessToken!.tokenString;
 
-    return (await FirebaseAuth.instance.signInWithCredential(
-      facebookAuthCredential,
-    )).user!;
+        final credential = FacebookAuthProvider.credential(accessToken);
+
+        final userCredential = await FirebaseAuth.instance.signInWithCredential(
+          credential,
+        );
+
+        return userCredential.user!;
+      }
+
+      if (loginResult.status == LoginStatus.cancelled) {
+        throw CustomException(message: "تم إلغاء تسجيل الدخول.");
+      }
+
+      throw CustomException(message: "فشل تسجيل الدخول بفيسبوك.");
+    } catch (e) {
+      throw CustomException(
+        message: "حدث خطأ أثناء تسجيل الدخول بفيسبوك. حاول مرة أخرى.",
+      );
+    }
   }
-  bool isLoggedIn(){
+
+  bool isLoggedIn() {
     return FirebaseAuth.instance.currentUser != null;
   }
 }

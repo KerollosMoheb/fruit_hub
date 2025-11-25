@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_e_commerce_app/constants.dart';
 import 'package:fruits_e_commerce_app/core/errors/exceptions.dart';
-import 'package:fruits_e_commerce_app/core/errors/failure.dart';
+import 'package:fruits_e_commerce_app/core/errors/failures.dart';
 import 'package:fruits_e_commerce_app/core/services/data_service.dart';
 import 'package:fruits_e_commerce_app/core/services/firebase_auth_service.dart';
 import 'package:fruits_e_commerce_app/core/services/shared_preferences_singleton.dart';
@@ -33,7 +34,7 @@ class AuthRepoImpl extends AuthRepo {
         email: email,
         password: password,
       );
-      var userEntity = UserEntity(uId: user.uid, name: name, email: email);
+      var userEntity = UserEntity(name: name, email: email, uId: user.uid);
       await addUserData(user: userEntity);
       return right(userEntity);
     } on CustomException catch (e) {
@@ -44,7 +45,7 @@ class AuthRepoImpl extends AuthRepo {
       log(
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
-      return left(ServerFailure('لقد حدث خطأ ما'));
+      return left(ServerFailure('حدث خطأ ما. الرجاء المحاولة مرة اخرى.'));
     }
   }
 
@@ -55,7 +56,7 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+  Future<Either<Failure, UserEntity>> signinWithEmailAndPassword(
     String email,
     String password,
   ) async {
@@ -71,58 +72,52 @@ class AuthRepoImpl extends AuthRepo {
       return left(ServerFailure(e.message));
     } catch (e) {
       log(
-        'Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}',
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
-      return left(ServerFailure('لقد حدث خطأ ما'));
+      return left(ServerFailure('حدث خطأ ما. الرجاء المحاولة مرة اخرى.'));
     }
   }
 
   @override
-  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+  Future<Either<Failure, UserEntity>> signinWithGoogle() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
+
       var userEntity = UserModel.fromFirebaseUser(user);
-      var isUserExists = await databaseService.checkIfDataExists(
-        path: BackendEndpoint.isUserExist,
-        documentId: user.uid,
+      var isUserExist = await databaseService.checkIfDataExists(
+        path: BackendEndpoint.isUserExists,
+        docuementId: user.uid,
       );
-      if (isUserExists) {
+      if (isUserExist) {
         await getUserData(uid: user.uid);
       } else {
         await addUserData(user: userEntity);
       }
       return right(userEntity);
-    } on CustomException catch (e) {
-      return left(ServerFailure(e.message));
     } catch (e) {
       await deleteUser(user);
-      log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
-      return left(ServerFailure('لقد حدث خطأ ما'));
+      log(
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
+      );
+      return left(ServerFailure('حدث خطأ ما. الرجاء المحاولة مرة اخرى.'));
     }
   }
 
   @override
-  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
+  Future<Either<Failure, UserEntity>> signinWithFacebook() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithFacebook();
       var userEntity = UserModel.fromFirebaseUser(user);
-      var isUserExists = await databaseService.checkIfDataExists(
-        path: BackendEndpoint.isUserExist,
-        documentId: user.uid,
-      );
-      if (isUserExists) {
-        await getUserData(uid: user.uid);
-      } else {
-        await addUserData(user: userEntity);
-      }
       await addUserData(user: userEntity);
       return right(userEntity);
     } catch (e) {
       await deleteUser(user);
-      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
-      return left(ServerFailure('لقد حدث خطأ ما'));
+      log(
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
+      );
+      return left(ServerFailure('حدث خطأ ما. الرجاء المحاولة مرة اخرى.'));
     }
   }
 
@@ -138,8 +133,8 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future<UserEntity> getUserData({required String uid}) async {
     var userData = await databaseService.getData(
-      path: BackendEndpoint.getUserData,
-      documentId: uid,
+      path: BackendEndpoint.getUsersData,
+      docuementId: uid,
     );
     return UserModel.fromJson(userData);
   }

@@ -7,15 +7,11 @@ part 'signin_state.dart';
 
 class SigninCubit extends Cubit<SigninState> {
   SigninCubit(this.authRepo) : super(SigninInitial());
-
   final AuthRepo authRepo;
 
-  Future<void> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<void> signin(String email, String password) async {
     emit(SigninLoading());
-    var result = await authRepo.signInWithEmailAndPassword(
+    var result = await authRepo.signinWithEmailAndPassword(
       email,
       password,
     );
@@ -24,21 +20,23 @@ class SigninCubit extends Cubit<SigninState> {
       (userEntity) => emit(SigninSuccess(userEntity: userEntity)),
     );
   }
-  Future<void> signInWithGoogle() async {
+
+  Future<void> signinWithGoogle() async {
     emit(SigninLoading());
-    var result = await authRepo.signInWithGoogle();
+    var result = await authRepo.signinWithGoogle();
     result.fold(
       (failure) => emit(SigninFailure(message: failure.message)),
       (userEntity) => emit(SigninSuccess(userEntity: userEntity)),
     );
   }
-  Future<void> signInWithFacebook() async {
+
+  Future<void> signinWithFacebook() async {
     emit(SigninLoading());
-    var result = await authRepo.signInWithFacebook();
+    var result = await authRepo.signinWithFacebook();
     result.fold(
       (failure) => emit(SigninFailure(message: failure.message)),
       (userEntity) => emit(SigninSuccess(userEntity: userEntity)),
     );
   }
-  
+
 }

@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_e_commerce_app/constants.dart';
+import 'package:fruits_e_commerce_app/core/cubits/products_cubit/products_cubit.dart';
 import 'package:fruits_e_commerce_app/core/widgets/search_text_field.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/best_selling_grid_view.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/best_selling_grid_view_bloc_builder.dart';
 import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/best_selling_header.dart';
 import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/featured_list.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
 
   @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  @override
+  void initState() {
+    context.read<ProductsCubit>().getBestSellingroducts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -30,7 +43,7 @@ class HomeViewBody extends StatelessWidget {
               ],
             ),
           ),
-          BestSellingGridView(),
+          BestSellingGridViewBlocBuilder(),
         ],
       ),
     );

@@ -4,7 +4,7 @@ import 'package:fruits_e_commerce_app/constants.dart';
 import 'package:fruits_e_commerce_app/core/helper_functions/build_error_bar.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_button.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_text_field.dart';
-import 'package:fruits_e_commerce_app/core/widgets/password_feild.dart';
+import 'package:fruits_e_commerce_app/core/widgets/password_field.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/cubits/signup_cubit/signup_cubit.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/views/widgets/have_an_account.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/views/widgets/terms_and_condition_widget.dart';

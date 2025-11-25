@@ -8,7 +8,7 @@ import 'package:fruits_e_commerce_app/core/utils/app_images.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_button.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_text_field.dart';
-import 'package:fruits_e_commerce_app/core/widgets/password_feild.dart';
+import 'package:fruits_e_commerce_app/core/widgets/password_field.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/views/widgets/dont_have_an_account_widget.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/views/widgets/or_divider.dart';
@@ -67,10 +67,7 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    context.read<SigninCubit>().signInWithEmailAndPassword(
-                      email,
-                      password,
-                    );
+                    context.read<SigninCubit>().signin(email, password);
                   } else {
                     setState(() {
                       autovalidateMode = AutovalidateMode.always;
@@ -88,14 +85,14 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                 title: 'تسجيل بواسطة جوجل',
                 image: Assets.imagesGoogleIcons,
                 onPressed: () {
-                  context.read<SigninCubit>().signInWithGoogle();
+                  context.read<SigninCubit>().signinWithGoogle();
                 },
               ),
               SizedBox(height: 16),
               Platform.isIOS
                   ? SocialLoginButton(
                     title: 'تسجيل بواسطة أبل',
-                    image: Assets.imagesAppleIcons,
+                    image: Assets.imagesAppIcon,
                     onPressed: () {},
                   )
                   : const SizedBox(),
@@ -104,7 +101,7 @@ class _SigninViewBodyState extends State<SigninViewBody> {
                 title: 'تسجيل بواسطة فيسبوك',
                 image: Assets.imagesFacebookIcons,
                 onPressed: () {
-                  context.read<SigninCubit>().signInWithFacebook();
+                  context.read<SigninCubit>().signinWithFacebook();
                 },
               ),
             ],

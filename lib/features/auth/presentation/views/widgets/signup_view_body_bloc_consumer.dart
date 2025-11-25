@@ -4,7 +4,7 @@ import 'package:fruits_e_commerce_app/core/helper_functions/build_error_bar.dart
 import 'package:fruits_e_commerce_app/core/widgets/custom_progress_hud.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/cubits/signup_cubit/signup_cubit.dart';
 import 'package:fruits_e_commerce_app/features/auth/presentation/views/widgets/signup_view_body.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/home_view.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/views/main_view.dart';
 
 class SignupViewBodyBlocConsumer extends StatelessWidget {
   const SignupViewBodyBlocConsumer({super.key});
@@ -14,7 +14,7 @@ class SignupViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          Navigator.pushNamed(context, HomeView.routeName);
+          Navigator.pushNamed(context, MainView.routeName);
         }
         if (state is SignupFailure) {
           buildErrorBar(context, state.message);

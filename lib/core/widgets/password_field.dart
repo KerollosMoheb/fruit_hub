@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_e_commerce_app/core/widgets/custom_text_field.dart';
+
+import 'custom_text_field.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key, this.onSaved});
+  const PasswordField({
+    super.key,
+    this.onSaved,
+  });
+
   final void Function(String?)? onSaved;
 
   @override
@@ -21,10 +26,15 @@ class _PasswordFieldState extends State<PasswordField> {
           obscureText = !obscureText;
           setState(() {});
         },
-        child: Icon(
-          obscureText ? Icons.remove_red_eye : Icons.visibility_off,
-          color: Color(0xffC9CECF),
-        ),
+        child: obscureText
+            ? const Icon(
+                Icons.remove_red_eye,
+                color: Color(0xffC9CECF),
+              )
+            : const Icon(
+                Icons.visibility_off,
+                color: Color(0xffC9CECF),
+              ),
       ),
       hintText: 'كلمة المرور',
       textInputType: TextInputType.visiblePassword,

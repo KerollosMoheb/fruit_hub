@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
 import 'package:fruits_e_commerce_app/core/widgets/notification_widget.dart';
+
+import '../utils/app_text_styles.dart';
 
 AppBar buildAppBar() {
   return AppBar(

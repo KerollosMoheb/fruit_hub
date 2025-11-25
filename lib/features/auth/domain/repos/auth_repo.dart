@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruits_e_commerce_app/core/errors/failure.dart';
+import 'package:fruits_e_commerce_app/core/errors/failures.dart';
 import 'package:fruits_e_commerce_app/features/auth/domain/entites/user_entity.dart';
 
 abstract class AuthRepo {
@@ -8,16 +8,16 @@ abstract class AuthRepo {
     String password,
     String name,
   );
-  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+
+  Future<Either<Failure, UserEntity>> signinWithEmailAndPassword(
     String email,
     String password,
   );
-  Future<Either<Failure, UserEntity>> signInWithGoogle();
 
-  Future<Either<Failure, UserEntity>> signInWithFacebook();
+  Future<Either<Failure, UserEntity>> signinWithGoogle();
+  Future<Either<Failure, UserEntity>> signinWithFacebook();
 
   Future addUserData({required UserEntity user});
   Future saveUserData({required UserEntity user});
-
   Future<UserEntity> getUserData({required String uid});
 }
