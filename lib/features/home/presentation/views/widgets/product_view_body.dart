@@ -2,29 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_e_commerce_app/constants.dart';
 import 'package:fruits_e_commerce_app/core/cubits/products_cubit/products_cubit.dart';
+import 'package:fruits_e_commerce_app/core/widgets/custom_app_bar.dart';
 import 'package:fruits_e_commerce_app/core/widgets/search_text_field.dart';
 import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/products_grid_view_bloc_builder.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/best_selling_header.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/custom_home_app_bar.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/featured_list.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/products_view_header.dart';
 
-class HomeViewBody extends StatefulWidget {
-  const HomeViewBody({super.key});
+class ProductViewBody extends StatefulWidget {
+  const ProductViewBody({super.key});
 
   @override
-  State<HomeViewBody> createState() => _HomeViewBodyState();
+  State<ProductViewBody> createState() => _ProductViewBodyState();
 }
 
-class _HomeViewBodyState extends State<HomeViewBody> {
+class _ProductViewBodyState extends State<ProductViewBody> {
   @override
   void initState() {
-    context.read<ProductsCubit>().getProducts();
     super.initState();
+    context.read<ProductsCubit>().getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomScrollView(
         slivers: [
@@ -32,13 +31,17 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             child: Column(
               children: [
                 SizedBox(height: kTopPadding),
-                CustomHomeAppBar(),
+                buildAppBar(
+                  context,
+                  title: "المنتجات",
+                  isBackButtonVisible: false,
+                ),
                 SizedBox(height: 16),
                 SearchTextField(),
                 SizedBox(height: 12),
-                FeaturedList(),
-                SizedBox(height: 12),
-                BestSellingHeader(),
+                ProductsViewHeader(
+                  productlength: context.read<ProductsCubit>().productsLength,
+                ),
                 SizedBox(height: 8),
               ],
             ),
