@@ -6,8 +6,8 @@ import 'package:fruits_e_commerce_app/core/utils/app_images.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_network_image.dart';
 import 'package:fruits_e_commerce_app/features/home/domain/entites/cart_item_entity.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/cubits/cart_cubit/cart_cubit.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/cubits/cart_item/cart_item_cubit.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/cubits/cart_item/cart_item_cubit.dart';
 import 'package:fruits_e_commerce_app/features/home/presentation/views/widgets/cart_item_action_buttons.dart';
 
 class CartItem extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:fruits_e_commerce_app/core/entities/product_entity.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_colors.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_network_image.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/cubits/cart_cubit/cart_cubit.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 
 class FruitItem extends StatelessWidget {
   const FruitItem({super.key, required this.productEntity});

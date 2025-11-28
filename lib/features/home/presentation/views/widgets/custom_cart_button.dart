@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_button.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/cubits/cart_cubit/cart_cubit.dart';
-import 'package:fruits_e_commerce_app/features/home/presentation/views/cubits/cart_item/cart_item_cubit.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
+import 'package:fruits_e_commerce_app/features/home/presentation/cubits/cart_item/cart_item_cubit.dart';
 
 class CustomCartButton extends StatelessWidget {
   const CustomCartButton({super.key});
