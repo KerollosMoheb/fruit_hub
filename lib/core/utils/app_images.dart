@@ -27,6 +27,14 @@ class Assets {
   /// assets/images/filter.svg
   static const String imagesFilter = "assets/images/filter.svg";
 
+  /// Assets for imagesLocation
+  /// assets/images/location.svg
+  static const String imagesLocation = "assets/images/location.svg";
+
+  /// Assets for imagesEdit
+  /// assets/images/edit.svg
+  static const String imagesEdit = "assets/images/edit.svg";
+
   /// Assets for imagesFilter2
   /// assets/images/filter2.svg
   static const String imagesFilter2 = "assets/images/filter2.svg";
