@@ -74,7 +74,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                             userName,
                           );
                     } else {
-                      buildErrorBar(context, 'يجب قبول الشروط والأحكام');
+                      showErrorBar(context, 'يجب قبول الشروط والأحكام');
                     }
                   } else {
                     setState(() {

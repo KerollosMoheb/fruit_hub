@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-void buildErrorBar(BuildContext context, String message) {
+void showErrorBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(message), duration: Duration(seconds: 2)),
+    SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 1),
+      behavior: SnackBarBehavior.fixed,
+    ),
   );
 }
