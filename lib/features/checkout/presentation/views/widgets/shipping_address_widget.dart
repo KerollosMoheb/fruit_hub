@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +13,7 @@ class ShippingAddressWidget extends StatelessWidget {
   final PageController pageController;
   @override
   Widget build(BuildContext context) {
+    log(context.read<OrderEntity>().toString());
     return PaymentItem(
       title: 'عنوان التوصيل',
       child: Row(

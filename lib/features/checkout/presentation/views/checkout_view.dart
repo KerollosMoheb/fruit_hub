@@ -12,11 +12,27 @@ import 'package:fruits_e_commerce_app/features/checkout/presentation/views/widge
 import 'package:fruits_e_commerce_app/features/home/domain/entites/cart_entity.dart';
 import 'package:provider/provider.dart';
 
-class CheckoutView extends StatelessWidget {
+class CheckoutView extends StatefulWidget {
   const CheckoutView({super.key, required this.cartEntity});
 
   static const String routeName = 'checkout';
   final CartEntity cartEntity;
+
+  @override
+  State<CheckoutView> createState() => _CheckoutViewState();
+}
+
+class _CheckoutViewState extends State<CheckoutView> {
+  late OrderEntity orderEntity;
+  @override
+  void initState() {
+    orderEntity = OrderEntity(
+      uID: getUser().uId,
+      widget.cartEntity,
+      shippingAddressEntity: ShippingAddressEntity(),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +45,7 @@ class CheckoutView extends StatelessWidget {
           isNotificationVisible: false,
         ),
         body: Provider.value(
-          value: OrderEntity(
-            uID: getUser().uId,
-            cartEntity,
-            shippingAddressEntity: ShippingAddressEntity(),
-          ),
+          value: orderEntity,
           child: AddOrderCubitBlocBuilder(child: CheckoutViewBody()),
         ),
       ),
