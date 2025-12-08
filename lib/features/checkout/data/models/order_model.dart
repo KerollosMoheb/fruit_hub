@@ -17,18 +17,18 @@ class OrderModel {
     required this.paymentMethod,
   });
 
-  factory OrderModel.fromEntity({required OrderEntity orderEntity}) {
+  factory OrderModel.fromEntity(OrderEntity order) {
     return OrderModel(
-      totalPrice: orderEntity.cartEntity.calculateTotalPrice(),
-      uId: orderEntity.uID,
+      totalPrice: order.cartEntity.calculateTotalPrice(),
+      uId: order.uID,
       shippingAddressModel: ShippingAddressModel.fromEntity(
-        orderEntity.shippingAddressEntity,
+        order.shippingAddressEntity,
       ),
       orderProducts:
-          orderEntity.cartEntity.cartItems
+          order.cartEntity.cartItems
               .map((e) => OrderProductModel.fromEntity(cartItemEntity: e))
               .toList(),
-      paymentMethod: orderEntity.payWithCash! ? 'Cash' : 'PayPal',
+      paymentMethod: order.payWithCash! ? 'Cash' : 'PayPal',
     );
   }
 
