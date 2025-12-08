@@ -14,10 +14,10 @@ class MainViewBodyBlocConsumer extends StatelessWidget {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
         if (state is CartItemAdded) {
-          showErrorBar(context, 'تمت اضافة المنتج الى السلة');
+          showBar(context, 'تمت اضافة المنتج الى السلة');
         }
         if (state is CartItemRemoved) {
-          showErrorBar(context, 'تم حذف المنتج من السلة');
+          showBar(context, 'تم حذف المنتج من السلة');
         }
       },
       child: MainViewBody(currentViewIndex: currentViewIndex),

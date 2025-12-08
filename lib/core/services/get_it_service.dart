@@ -1,4 +1,5 @@
-
+import 'package:fruits_e_commerce_app/core/repos/orders_repo/orders_repo.dart';
+import 'package:fruits_e_commerce_app/core/repos/orders_repo/orders_repo_impl.dart';
 import 'package:fruits_e_commerce_app/core/repos/products_repo/products_repo.dart';
 import 'package:fruits_e_commerce_app/core/repos/products_repo/products_repo_impl.dart';
 import 'package:fruits_e_commerce_app/core/services/data_service.dart';
@@ -21,8 +22,7 @@ void setupGetit() {
   );
 
   getIt.registerSingleton<ProductsRepo>(
-    ProductsRepoImpl(
-      getIt<DatabaseService>(),
-    ),
+    ProductsRepoImpl(getIt<DatabaseService>()),
   );
+  getIt.registerSingleton<OrdersRepo>(OrdersRepoImpl(getIt<DatabaseService>()));
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_e_commerce_app/core/helper_functions/build_error_bar.dart';
 import 'package:fruits_e_commerce_app/core/widgets/custom_button.dart';
 import 'package:fruits_e_commerce_app/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruits_e_commerce_app/features/checkout/presentation/manger/add_order_cubit/add_order_cubit.dart';
 import 'package:fruits_e_commerce_app/features/checkout/presentation/views/widgets/check_out_steps_page_view.dart';
 import 'package:fruits_e_commerce_app/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:provider/provider.dart';
@@ -63,6 +64,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 _handleShippingSectionValidation(context);
               } else if (currentPageIndex == 1) {
                 _handleAddressValidation(context);
+              } else {
+                var orderEntity = context.read<OrderEntity>();
+                context.read<AddOrderCubit>().addOrder(order: orderEntity);
               }
             },
             text: getNextButtonText(currentPageIndex),
@@ -81,7 +85,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         curve: Curves.bounceIn,
       );
     } else {
-      showErrorBar(context, 'يرجي اختيار طريقة الدفع');
+      showBar(context, 'يرجي اختيار طريقة الدفع');
     }
   }
 

@@ -9,7 +9,7 @@ import 'package:fruits_e_commerce_app/features/checkout/domain/entities/order_en
 class OrdersRepoImpl implements OrdersRepo {
   final DatabaseService fireStoreService;
 
-  OrdersRepoImpl({required this.fireStoreService});
+  OrdersRepoImpl(this.fireStoreService);
 
   @override
   Future<Either<Failure, void>> addOrder({required OrderEntity order}) async {
