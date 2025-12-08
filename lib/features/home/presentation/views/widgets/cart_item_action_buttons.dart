@@ -17,20 +17,20 @@ class CartItemActionButtons extends StatelessWidget {
           color: AppColors.primaryColor,
           iconColor: Colors.white,
           onPressed: () {
-            cartItemEntity.increaseCount();
+            cartItemEntity.increaseQuantity();
             context.read<CartItemCubit>().updateCartItem(cartItemEntity);
           },
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text("${cartItemEntity.count}", style: TextStyles.bold16),
+          child: Text("${cartItemEntity.quantity}", style: TextStyles.bold16),
         ),
         CartItemActionButton(
           icon: Icons.remove,
           color: Color(0xfff3f5f7),
           iconColor: Colors.grey,
           onPressed: () {
-            cartItemEntity.decreaseCount();
+            cartItemEntity.decreaseQuantity();
             context.read<CartItemCubit>().updateCartItem(cartItemEntity);
           },
         ),
