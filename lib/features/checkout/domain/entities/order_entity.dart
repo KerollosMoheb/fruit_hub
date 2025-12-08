@@ -4,11 +4,11 @@ import 'package:fruits_e_commerce_app/features/home/domain/entites/cart_entity.d
 class OrderEntity {
   final CartEntity cartEntity;
   bool? payWithCash;
-  final ShippingAddressEntity? shippingAddressEntity;
+  ShippingAddressEntity shippingAddressEntity;
 
-  OrderEntity({
-    required this.cartEntity,
+  OrderEntity(
+    this.cartEntity, {
     this.payWithCash,
-    this.shippingAddressEntity,
+    required this.shippingAddressEntity,
   });
 }

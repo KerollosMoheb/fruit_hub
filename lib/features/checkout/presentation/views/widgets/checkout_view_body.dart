@@ -15,6 +15,9 @@ class CheckoutViewBody extends StatefulWidget {
 
 class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   late PageController pageController;
+  ValueNotifier<AutovalidateMode> valueNotifier = ValueNotifier(
+    AutovalidateMode.disabled,
+  );
 
   @override
   void initState() {
@@ -30,10 +33,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void dispose() {
     pageController.dispose();
+    valueNotifier.dispose();
     super.dispose();
   }
 
   int currentPageIndex = 0;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,18 +51,18 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             pageController: pageController,
           ),
           Expanded(
-            child: CheckoutStepsPageView(pageController: pageController),
+            child: CheckoutStepsPageView(
+              pageController: pageController,
+              formKey: formKey,
+              valueListenable: valueNotifier,
+            ),
           ),
           CustomButton(
             onPressed: () {
-              if (context.read<OrderEntity>().payWithCash != null) {
-                pageController.animateToPage(
-                  currentPageIndex + 1,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.bounceIn,
-                );
-              } else {
-                showErrorBar(context, 'يرجي اختيار طريقة الدفع');
+              if (currentPageIndex == 0) {
+                _handleShippingSectionValidation(context);
+              } else if (currentPageIndex == 1) {
+                _handleAddressValidation(context);
               }
             },
             text: getNextButtonText(currentPageIndex),
@@ -66,6 +71,30 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ],
       ),
     );
+  }
+
+  void _handleShippingSectionValidation(BuildContext context) {
+    if (context.read<OrderEntity>().payWithCash != null) {
+      pageController.animateToPage(
+        currentPageIndex + 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.bounceIn,
+      );
+    } else {
+      showErrorBar(context, 'يرجي اختيار طريقة الدفع');
+    }
+  }
+
+  void _handleAddressValidation(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      pageController.animateToPage(
+        currentPageIndex + 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.bounceIn,
+      );
+    } else {
+      valueNotifier.value = AutovalidateMode.always;
+    }
   }
 }
 

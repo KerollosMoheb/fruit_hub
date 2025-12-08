@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_e_commerce_app/core/utils/app_text_styles.dart';
+import 'package:fruits_e_commerce_app/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruits_e_commerce_app/features/checkout/presentation/views/widgets/payment_item.dart';
 
 class OrderSummaryWidget extends StatelessWidget {
-  const OrderSummaryWidget({
-    super.key,
-  });
+  const OrderSummaryWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +17,13 @@ class OrderSummaryWidget extends StatelessWidget {
             children: [
               Text(
                 "المجموع الفرعي :",
-                style: TextStyles.regular13.copyWith(
-                  color: Color(0xFF4E5556),
-                ),
+                style: TextStyles.regular13.copyWith(color: Color(0xFF4E5556)),
               ),
               Spacer(),
-              Text("150 جنيه", style: TextStyles.semiBold16),
+              Text(
+                "${context.read<OrderEntity>().cartEntity.calculateTotalPrice()} جنيه",
+                style: TextStyles.semiBold16,
+              ),
             ],
           ),
           SizedBox(height: 8),
@@ -31,16 +31,12 @@ class OrderSummaryWidget extends StatelessWidget {
             children: [
               Text(
                 "التوصيل :",
-                style: TextStyles.regular13.copyWith(
-                  color: Color(0xFF4E5556),
-                ),
+                style: TextStyles.regular13.copyWith(color: Color(0xFF4E5556)),
               ),
               Spacer(),
               Text(
                 "30 جنيه",
-                style: TextStyles.semiBold16.copyWith(
-                  color: Color(0xFF4E5556),
-                ),
+                style: TextStyles.semiBold16.copyWith(color: Color(0xFF4E5556)),
               ),
             ],
           ),
@@ -51,7 +47,10 @@ class OrderSummaryWidget extends StatelessWidget {
             children: [
               Text("الكلي :", style: TextStyles.bold16),
               Spacer(),
-              Text("180 جنيه", style: TextStyles.bold16),
+              Text(
+                "${context.read<OrderEntity>().cartEntity.calculateTotalPrice() + 30} جنيه",
+                style: TextStyles.bold16,
+              ),
             ],
           ),
         ],
