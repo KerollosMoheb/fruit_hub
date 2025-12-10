@@ -3,14 +3,14 @@ import 'package:fruits_e_commerce_app/features/home/domain/entites/cart_item_ent
 class OrderProductModel {
   final String name;
   final String code;
-  final String imagUrl;
+  final String imageUrl;
   final double price;
   final int quantity;
 
   OrderProductModel({
     required this.name,
     required this.code,
-    required this.imagUrl,
+    required this.imageUrl,
     required this.price,
     required this.quantity,
   });
@@ -21,7 +21,7 @@ class OrderProductModel {
     return OrderProductModel(
       name: cartItemEntity.productEntity.name,
       code: cartItemEntity.productEntity.code,
-      imagUrl: cartItemEntity.productEntity.imageUrl!,
+      imageUrl: cartItemEntity.productEntity.imageUrl!,
       price: cartItemEntity.productEntity.price.toDouble(),
       quantity: cartItemEntity.quantity,
     );
@@ -31,7 +31,7 @@ class OrderProductModel {
     return {
       'name': name,
       'code': code,
-      'imagUrl': imagUrl,
+      'imagUrl': imageUrl,
       'price': price,
       'quantity': quantity,
     };

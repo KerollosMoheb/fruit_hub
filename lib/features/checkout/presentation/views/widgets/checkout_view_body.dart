@@ -61,7 +61,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                   curve: Curves.easeIn,
                 );
               } else if (index == 1) {
-                var orderEntity = context.read<OrderEntity>();
+                var orderEntity = context.read<OrderInputEntity>();
                 if (orderEntity.payWithCash != null) {
                   pageController.animateToPage(
                     index,
@@ -104,7 +104,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void _handleShippingSectionValidation(BuildContext context) {
-    if (context.read<OrderEntity>().payWithCash != null) {
+    if (context.read<OrderInputEntity>().payWithCash != null) {
       pageController.animateToPage(
         currentPageIndex + 1,
         duration: const Duration(milliseconds: 300),
@@ -117,6 +117,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   void _handleAddressValidation(BuildContext context) {
     if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
       pageController.animateToPage(
         currentPageIndex + 1,
         duration: const Duration(milliseconds: 300),
@@ -128,7 +129,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void _processPayment(BuildContext context) {
-    var orderEntity = context.read<OrderEntity>();
+    var orderEntity = context.read<OrderInputEntity>();
     PaypalPaymentEntity paypalPaymentEntity = PaypalPaymentEntity.fromEntity(
       orderEntity,
     );
